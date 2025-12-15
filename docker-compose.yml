@@ -46,6 +46,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    user: root  # Run as root to fix volume permissions
     volumes:
       - ./src:/app/src
       - ./data:/app/data
@@ -58,30 +59,36 @@ services:
       - sh
       - -c
       - |
-        echo '========================================'
-        echo 'Installing package in editable mode...'
-        echo '========================================'
+        # Fix permissions on mounted volumes
+        chown -R appuser:appuser /app/models /app/data /app/reports
+        chmod -R 777 /app/models /app/data /app/reports
+        # Switch to appuser for the rest of execution
+        su appuser -s /bin/bash -c '
+        echo "========================================"
+        echo "Installing package in editable mode..."
+        echo "========================================"
         pip install --no-cache-dir -e ./backend
-        echo ''
-        echo '========================================'
-        echo 'Running EDA script...'
-        echo '========================================'
+        echo ""
+        echo "========================================"
+        echo "Running EDA script..."
+        echo "========================================"
         python backend/eda.py
-        EDA_EXIT_CODE=$$?
-        if [ $$EDA_EXIT_CODE -ne 0 ]; then
-          echo 'ERROR: EDA script failed with exit code' $$EDA_EXIT_CODE
+        EDA_EXIT_CODE=$?
+        if [ $EDA_EXIT_CODE -ne 0 ]; then
+          echo "ERROR: EDA script failed with exit code" $EDA_EXIT_CODE
           exit 10
         fi
-        echo ''
-        echo '========================================'
-        echo 'Running model training script...'
-        echo '========================================'
+        echo ""
+        echo "========================================"
+        echo "Running model training script..."
+        echo "========================================"
         python src/train_model.py
-        TRAIN_EXIT_CODE=$$?
-        if [ $$TRAIN_EXIT_CODE -ne 0 ]; then
-          echo 'ERROR: Model training script failed with exit code' $$TRAIN_EXIT_CODE
+        TRAIN_EXIT_CODE=$?
+        if [ $TRAIN_EXIT_CODE -ne 0 ]; then
+          echo "ERROR: Model training script failed with exit code" $TRAIN_EXIT_CODE
           exit 20
         fi
+        '
     #Services assigned to a named profile don't start when you run docker compose up
     #unless you explicitly opt into that profile, which keeps everyday backend/frontend
     #usage lightweight. When you do need to retrain, launch it with the profile enabled:

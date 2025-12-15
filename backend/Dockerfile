@@ -30,6 +30,11 @@ RUN useradd --create-home appuser
 # Asegurar permisos completos para appuser
 RUN chown -R appuser:appuser /app && chmod -R 755 /app
 
+# Crear directorios para volúmenes con permisos apropiados
+RUN mkdir -p /app/models /app/data /app/reports && \
+    chown -R appuser:appuser /app/models /app/data /app/reports && \
+    chmod -R 777 /app/models /app/data /app/reports
+
 # Copiar el código del proyecto
 COPY --chown=appuser:appuser . .
 

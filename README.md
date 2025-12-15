@@ -10,7 +10,7 @@ Proyecto de Machine Learning para clasificación de salud fetal utilizando model
 
 **[📋 Gestión del Proyecto](https://github.com/orgs/Bootcamp-IA-P5/projects/5)** | **[📊 Dataset en Kaggle](https://www.kaggle.com/datasets/andrewmvd/fetal-health-classification/data)**
 
-## 🌐 El proyecto está disponible en http://fetal-health.swedencentral.azurecontainer.io/
+## 🌐 El proyecto está disponible en https://ignacio.software/fetal-health/
 
 ## 📋 Tabla de Contenidos
 

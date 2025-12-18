@@ -112,6 +112,12 @@ def main():
         
         st.divider()
         
+        st.markdown("""
+        **Maintained by [Ignacio Castillo Franco](https://github.com/IgnacioCastilloFranco/fetal-health)**
+        """)
+        
+        st.divider()
+        
         # Backend status
         st.header("🔌 System Status")
         if check_backend_health():

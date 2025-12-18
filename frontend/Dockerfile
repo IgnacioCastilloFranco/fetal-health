@@ -18,4 +18,11 @@ COPY --chown=appuser:appuser . .
 USER appuser
 
 EXPOSE 8501
-CMD ["streamlit", "run", "frontend/app.py", "--server.port", "8501", "--server.address", "0.0.0.0", "--server.baseUrlPath", "fetal-health", "--server.enableCORS", "false"]
+CMD ["streamlit", "run", "app.py", \
+     "--server.port=8501", \
+     "--server.address=0.0.0.0", \
+     "--server.baseUrlPath=fetal-health", \
+     "--server.enableXsrfProtection=false", \
+     "--server.enableCORS=false"]
+
+

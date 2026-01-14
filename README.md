@@ -162,7 +162,7 @@ Equipo_4_Proyecto_VII_Modelos_de_ensemble/
 
 La forma más fácil de probar el sistema es usando la aplicación **desplegada on line**:
 
-1. **Accede al Frontend**: [http://fetal-health.swedencentral.azurecontainer.io/](http://fetal-health.swedencentral.azurecontainer.io/)
+1. **Accede al Frontend**: [https://ignacio.software/fetal-health/](https://ignacio.software/fetal-health/)
 2. **Ingresa los parámetros CTG** en los campos de entrada
 3. **Haz clic en "Predict"** para obtener el resultado de clasificación
 4. **Observa la predicción**: clase, etiqueta y nivel de confianza
@@ -175,52 +175,6 @@ Si has clonado el proyecto y lo ejecutas localmente:
 2. Ingresar los parámetros CTG en los campos de entrada
 3. Hacer clic en "Predict" para obtener el resultado de clasificación
 4. Ver la confianza de la predicción y la etiqueta de clase
-
-### 🔌 Usando la API
-
-#### API en Producción (Render)
-
-**Verificación de Estado:**
-```bash
-curl https://fetal-health-backend-jnsr.onrender.com/health
-```
-
-**Hacer una Predicción:**
-```bash
-curl -X POST http://fetal-health.swedencentral.azurecontainer.io/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "baseline_value": 120.0,
-    "accelerations": 0.0,
-    "fetal_movement": 0.0,
-    "uterine_contractions": 0.0,
-    "light_decelerations": 0.0,
-    "severe_decelerations": 0.0,
-    "prolongued_decelerations": 0.0,
-    "abnormal_short_term_variability": 73.0,
-    "mean_value_of_short_term_variability": 0.5,
-    "percentage_of_time_with_abnormal_long_term_variability": 43.0,
-    "mean_value_of_long_term_variability": 2.4,
-    "histogram_width": 64.0,
-    "histogram_min": 62.0,
-    "histogram_max": 126.0,
-    "histogram_number_of_peaks": 2.0,
-    "histogram_number_of_zeroes": 0.0,
-    "histogram_mode": 120.0,
-    "histogram_mean": 137.0,
-    "histogram_median": 121.0,
-    "histogram_variance": 73.0,
-    "histogram_tendency": 1.0
-  }'
-```
-
-**Obtener Información del Dataset:**
-```bash
-curl http://fetal-health.swedencentral.azurecontainer.io/dataset/info
-```
-
-**Documentación Interactiva:**
-Visita [fetal-health.swedencentral.azurecontainer.io/docs](fetal-health.swedencentral.azurecontainer.io/docs) para probar la API directamente desde el navegador.
 
 ## 🎓 Entrenamiento del Modelo
 
